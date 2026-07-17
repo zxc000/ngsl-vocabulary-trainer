@@ -11,7 +11,7 @@ describe("vocabulary data", () => {
     expect(ranks).toEqual(Array.from({ length: 2809 }, (_, index) => index + 1));
   });
 
-  it("has required fields and nullable IPA", () => {
+  it("has required fields and CMU IPA", () => {
     for (const word of vocabulary) {
       expect(word.id).toMatch(/^ngsl-\d{4}$/);
       expect(word.lemma.length).toBeGreaterThan(0);
@@ -19,7 +19,8 @@ describe("vocabulary data", () => {
       expect(typeof word.rank).toBe("number");
       expect(typeof word.sfi).toBe("number");
       expect(typeof word.frequencyPerMillion).toBe("number");
-      expect(word.ipa === null || typeof word.ipa === "string").toBe(true);
+      expect(typeof word.ipa).toBe("string");
+      expect(word.ipa?.length).toBeGreaterThan(0);
     }
   });
 });

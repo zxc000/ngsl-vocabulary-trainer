@@ -111,7 +111,7 @@ export default function Stats() {
         </div>
         {message && <p className="mt-4 rounded-md bg-slate-100 p-3 text-sm text-muted">{message}</p>}
         <p className="mt-5 text-xs leading-relaxed text-muted">
-          單字與 IPA 資料包含 Open English Wordnet 內容，依 CC-BY 4.0 授權發布。
+          IPA 由 CMU Pronouncing Dictionary 的美式 ARPABET 資料轉換而來。
         </p>
       </aside>
     </div>
