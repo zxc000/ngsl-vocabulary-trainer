@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Check, Frown, Smile, Zap } from "lucide-react";
 import FlashCard from "../components/FlashCard";
+import { isInteractiveTarget } from "../lib/keyboard";
 import { getNextStudyWord, rateWord } from "../lib/storage";
 import type { Rating, VocabularyWord } from "../types";
 
@@ -15,6 +16,7 @@ export default function Study() {
   const [word, setWord] = useState<VocabularyWord | null>(null);
   const [revealed, setRevealed] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isRating, setIsRating] = useState(false);
 
   async function loadNextWord() {
     setLoading(true);
@@ -29,13 +31,56 @@ export default function Study() {
   }, []);
 
   async function handleRate(rating: Rating) {
-    if (!word) {
+    if (!word || !revealed || loading) {
       return;
     }
 
-    await rateWord(word.id, rating);
-    await loadNextWord();
+    setIsRating(true);
+    try {
+      await rateWord(word.id, rating);
+      await loadNextWord();
+    } finally {
+      setIsRating(false);
+    }
   }
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.defaultPrevented || isInteractiveTarget(event.target) || loading || isRating || !word) {
+        return;
+      }
+
+      if (!revealed && (event.key === " " || event.key === "Enter")) {
+        event.preventDefault();
+        setRevealed(true);
+        return;
+      }
+
+      if (!revealed) {
+        return;
+      }
+
+      const ratingByKey: Record<string, Rating> = {
+        "1": "forgot",
+        Numpad1: "forgot",
+        "2": "hard",
+        Numpad2: "hard",
+        "3": "good",
+        Numpad3: "good",
+        "4": "easy",
+        Numpad4: "easy"
+      };
+      const nextRating = ratingByKey[event.key] ?? ratingByKey[event.code];
+
+      if (nextRating) {
+        event.preventDefault();
+        void handleRate(nextRating);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isRating, loading, revealed, word]);
 
   if (loading) {
     return <div className="rounded-md border border-line bg-white p-6">正在載入下一張卡片...</div>;
@@ -62,8 +107,9 @@ export default function Study() {
               <button
                 key={button.rating}
                 type="button"
+                disabled={isRating}
                 onClick={() => void handleRate(button.rating)}
-                className={`inline-flex items-center justify-center gap-2 rounded-md px-4 py-3 font-semibold text-white transition focus:focus-ring ${button.className}`}
+                className={`inline-flex items-center justify-center gap-2 rounded-md px-4 py-3 font-semibold text-white transition focus:focus-ring disabled:cursor-not-allowed disabled:opacity-60 ${button.className}`}
               >
                 <Icon size={18} aria-hidden="true" />
                 {button.label}
