@@ -12,11 +12,3 @@ export function isEditableTarget(target: EventTarget | null) {
     tagName === "select"
   );
 }
-
-export function isInteractiveTarget(target: EventTarget | null) {
-  if (!(target instanceof HTMLElement)) {
-    return false;
-  }
-
-  return Boolean(target.closest("a, button, input, textarea, select, [contenteditable='true']"));
-}

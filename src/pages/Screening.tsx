@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, CheckCircle2, Target } from "lucide-react";
 import { Link } from "react-router-dom";
 import FlashCard from "../components/FlashCard";
-import { isInteractiveTarget } from "../lib/keyboard";
+import { isEditableTarget } from "../lib/keyboard";
 import { getNewWords, markWordLearning, markWordMastered } from "../lib/storage";
 import type { VocabularyWord } from "../types";
 
@@ -54,7 +54,7 @@ export default function Screening() {
 
   useEffect(() => {
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.defaultPrevented || isInteractiveTarget(event.target) || loading || submitting || !word) {
+      if (event.defaultPrevented || isEditableTarget(event.target) || loading || submitting || !word) {
         return;
       }
 

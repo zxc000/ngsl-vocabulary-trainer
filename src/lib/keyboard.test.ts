@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 
 import { describe, expect, it } from "vitest";
-import { isEditableTarget, isInteractiveTarget } from "./keyboard";
+import { isEditableTarget } from "./keyboard";
 
 describe("keyboard helpers", () => {
   it("detects editable targets", () => {
@@ -13,14 +13,8 @@ describe("keyboard helpers", () => {
     expect(isEditableTarget(editable)).toBe(true);
   });
 
-  it("detects interactive targets", () => {
-    const wrapper = document.createElement("div");
-    const button = document.createElement("button");
-    const label = document.createElement("span");
-    button.append(label);
-    wrapper.append(button);
-
-    expect(isInteractiveTarget(label)).toBe(true);
-    expect(isInteractiveTarget(document.createElement("div"))).toBe(false);
+  it("does not treat links and buttons as editable", () => {
+    expect(isEditableTarget(document.createElement("a"))).toBe(false);
+    expect(isEditableTarget(document.createElement("button"))).toBe(false);
   });
 });
