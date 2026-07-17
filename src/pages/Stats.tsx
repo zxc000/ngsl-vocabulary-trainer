@@ -111,7 +111,7 @@ export default function Stats() {
         </div>
         {message && <p className="mt-4 rounded-md bg-slate-100 p-3 text-sm text-muted">{message}</p>}
         <p className="mt-5 text-xs leading-relaxed text-muted">
-          IPA 由 CMU Pronouncing Dictionary 的美式 ARPABET 資料轉換而來。
+          IPA 主要取自 Wiktionary/Kaikki；缺漏字由 CMU Pronouncing Dictionary 補齊。
         </p>
       </aside>
     </div>

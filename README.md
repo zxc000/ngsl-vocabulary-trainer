@@ -13,7 +13,8 @@
 ## Data
 
 The app ships with a generated vocabulary asset at `src/data/vocabulary.json`.
-IPA is derived from the CMU Pronouncing Dictionary ARPABET data and converted into IPA for display.
+IPA is primarily derived from Wiktionary data extracted by Kaikki/Wiktextract.
+Missing Wiktionary IPA is filled from the CMU Pronouncing Dictionary ARPABET data and converted into IPA for display.
 Original source spreadsheets and planning documents are not included in this public repository.
 
 ## Development

@@ -11,7 +11,7 @@ describe("vocabulary data", () => {
     expect(ranks).toEqual(Array.from({ length: 2809 }, (_, index) => index + 1));
   });
 
-  it("has required fields and CMU IPA", () => {
+  it("has required fields and IPA", () => {
     for (const word of vocabulary) {
       expect(word.id).toMatch(/^ngsl-\d{4}$/);
       expect(word.lemma.length).toBeGreaterThan(0);
