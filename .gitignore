@@ -1,0 +1,11 @@
+node_modules
+dist
+.pnpm-store
+.cache
+.DS_Store
+coverage
+*.log
+*.tsbuildinfo
+NGSL_1.2_sorted_with_definitions.xlsx
+NGSL_Vocabulary_Trainer_v1_Spec.docx
+scripts/build_vocabulary.py
