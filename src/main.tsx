@@ -41,14 +41,14 @@ function Shell() {
                     to={item.to}
                     className={({ isActive }) =>
                       [
-                        "flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium transition",
+                        "flex min-h-14 flex-col items-center justify-center gap-1 rounded-md px-2 py-2 text-center text-xs font-medium leading-tight transition sm:min-h-0 sm:flex-row sm:gap-2 sm:px-3 sm:text-sm",
                         isActive ? "bg-ink text-white" : "text-muted hover:bg-slate-100 hover:text-ink"
                       ].join(" ")
                     }
                     title={item.label}
                   >
                     <Icon size={17} aria-hidden="true" />
-                    <span>{item.label}</span>
+                    <span className="whitespace-nowrap">{item.label}</span>
                   </NavLink>
                 );
               })}
