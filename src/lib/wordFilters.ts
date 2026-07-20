@@ -2,12 +2,10 @@ import type { ProgressStatus, VocabularyWord, WordProgress } from "../types";
 import { getWordStatus } from "./storage";
 
 export type StatusFilter = "all" | ProgressStatus;
-export type IpaFilter = "all" | "has-ipa" | "missing-ipa";
 
 export interface WordListFilters {
   query: string;
   status: StatusFilter;
-  ipa: IpaFilter;
   rankFrom: string;
   rankTo: string;
 }
@@ -29,12 +27,8 @@ export function filterVocabularyWords(
     const matchesStatus = filters.status === "all" || status === filters.status;
     const matchesRankFrom = !hasRankFrom || word.rank >= rankFrom;
     const matchesRankTo = !hasRankTo || word.rank <= rankTo;
-    const matchesIpa =
-      filters.ipa === "all" ||
-      (filters.ipa === "has-ipa" && Boolean(word.ipa)) ||
-      (filters.ipa === "missing-ipa" && !word.ipa);
 
-    return matchesQuery && matchesStatus && matchesRankFrom && matchesRankTo && matchesIpa;
+    return matchesQuery && matchesStatus && matchesRankFrom && matchesRankTo;
   });
 }
 

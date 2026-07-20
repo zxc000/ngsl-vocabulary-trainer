@@ -1,4 +1,5 @@
 import { RotateCcw } from "lucide-react";
+import DefinitionLookup from "./DefinitionLookup";
 import type { VocabularyWord } from "../types";
 
 interface FlashCardProps {
@@ -28,7 +29,7 @@ export default function FlashCard({ word, revealed, onReveal }: FlashCardProps) 
             </div>
             <div className="rounded-md border border-line bg-slate-50 p-4 sm:col-span-2">
               <p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">英文解釋</p>
-              <p className="mt-2 text-lg leading-relaxed">{word.definitionEn}</p>
+              <DefinitionLookup definition={word.definitionEn} currentWordId={word.id} />
             </div>
           </div>
         ) : (

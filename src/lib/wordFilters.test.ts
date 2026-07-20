@@ -52,7 +52,6 @@ describe("filterVocabularyWords", () => {
     const result = filterVocabularyWords(words, progressMap, {
       query: "",
       status: "mastered",
-      ipa: "all",
       rankFrom: "",
       rankTo: ""
     });
@@ -64,7 +63,6 @@ describe("filterVocabularyWords", () => {
     const result = filterVocabularyWords(words, new Map(), {
       query: "",
       status: "all",
-      ipa: "all",
       rankFrom: "400",
       rankTo: "1300"
     });
@@ -72,23 +70,10 @@ describe("filterVocabularyWords", () => {
     expect(result.map((word) => word.id)).toEqual(["ngsl-0500", "ngsl-1200"]);
   });
 
-  it("filters by IPA availability", () => {
-    const result = filterVocabularyWords(words, new Map(), {
-      query: "",
-      status: "all",
-      ipa: "missing-ipa",
-      rankFrom: "",
-      rankTo: ""
-    });
-
-    expect(result.map((word) => word.id)).toEqual(["ngsl-0500"]);
-  });
-
   it("combines query and filters", () => {
     const result = filterVocabularyWords(words, new Map(), {
       query: "listen",
       status: "new",
-      ipa: "has-ipa",
       rankFrom: "1000",
       rankTo: ""
     });
