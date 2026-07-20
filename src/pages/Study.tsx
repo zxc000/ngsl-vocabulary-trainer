@@ -50,7 +50,7 @@ export default function Study() {
         return;
       }
 
-      if (!revealed && (event.key === " " || event.key === "Enter")) {
+      if (!revealed && (event.key === " " || event.key === "ArrowDown")) {
         event.preventDefault();
         setRevealed(true);
         return;

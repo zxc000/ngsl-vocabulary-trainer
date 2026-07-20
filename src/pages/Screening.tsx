@@ -58,7 +58,7 @@ export default function Screening() {
         return;
       }
 
-      if (!revealed && (event.key === " " || event.key === "Enter")) {
+      if (!revealed && (event.key === " " || event.key === "ArrowDown")) {
         event.preventDefault();
         setRevealed(true);
         return;
