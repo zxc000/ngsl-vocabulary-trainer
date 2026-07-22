@@ -9,13 +9,18 @@ interface DefinitionLookupProps {
 }
 
 const tokenPattern = /([A-Za-z]+(?:'[A-Za-z]+)?)/g;
+const minimumLookupRank = 201;
 
 export function tokenizeDefinition(definition: string) {
   return definition.split(tokenPattern).filter((token) => token.length > 0);
 }
 
 export function createVocabularyLookup(words: VocabularyWord[]) {
-  return new Map(words.map((word) => [word.lemma.toLowerCase(), word]));
+  return new Map(
+    words
+      .filter((word) => word.rank >= minimumLookupRank)
+      .map((word) => [word.lemma.toLowerCase(), word])
+  );
 }
 
 export default function DefinitionLookup({ definition, currentWordId }: DefinitionLookupProps) {

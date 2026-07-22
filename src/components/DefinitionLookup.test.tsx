@@ -18,7 +18,7 @@ const testWords: VocabularyWord[] = [
   {
     id: "ngsl-0002",
     lemma: "alive",
-    rank: 2,
+    rank: 201,
     sfi: 1,
     frequencyPerMillion: 1,
     definitionEn: "living; not dead",
@@ -35,6 +35,7 @@ describe("definition lookup", () => {
     const lookup = createVocabularyLookup(testWords);
 
     expect(lookup.get("alive")?.ipa).toBe("əˈlaɪv");
+    expect(lookup.get("be")).toBeUndefined();
     expect(lookup.get("lives")).toBeUndefined();
   });
 
